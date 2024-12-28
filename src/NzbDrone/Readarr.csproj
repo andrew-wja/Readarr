@@ -2,6 +2,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>net6.0-windows</TargetFrameworks>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>..\NzbDrone.Host\Readarr.ico</ApplicationIcon>

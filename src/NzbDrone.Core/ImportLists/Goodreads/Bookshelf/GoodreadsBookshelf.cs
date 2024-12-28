@@ -52,7 +52,7 @@ namespace NzbDrone.Core.ImportLists.Goodreads
             {
                 Author = x.Book.Authors.First().Name.CleanSpaces(),
                 Book = x.Book.TitleWithoutSeries.CleanSpaces(),
-                EditionGoodreadsId = x.Book.Id.ToString()
+                EditionForeignId = x.Book.Id.ToString()
             }).ToList();
         }
 

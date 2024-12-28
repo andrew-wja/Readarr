@@ -5,7 +5,7 @@ COVERAGE=$3
 WHERE="Category!=ManualTest"
 TEST_PATTERN="*Test.dll"
 FILES=( "Readarr.Api.Test.dll" "Readarr.Automation.Test.dll" "Readarr.Common.Test.dll" "Readarr.Core.Test.dll" "Readarr.Host.Test.dll" "Readarr.Integration.Test.dll" "Readarr.Libraries.Test.dll" "Readarr.Mono.Test.dll" "Readarr.Update.Test.dll" "Readarr.Windows.Test.dll" )
-ASSMEBLIES=""
+ASSEMBLIES=""
 TEST_LOG_FILE="TestLog.txt"
 
 echo "test dir: $TEST_DIR"
@@ -15,6 +15,10 @@ fi
 
 if [ -d "$TEST_DIR/_tests" ]; then
   TEST_DIR="$TEST_DIR/_tests"
+fi
+
+if [ -d "$TEST_DIR/_tests/net6.0" ]; then
+  TEST_DIR="$TEST_DIR/_tests/net6.0"
 fi
 
 rm -f "$TEST_LOG_FILE"
@@ -57,7 +61,7 @@ else
 fi
 
 for i in "${FILES[@]}";
-  do ASSEMBLIES="$ASSEMBLIES $TEST_DIR/$i"
+  do ASSEMBLIES="$ASSEMBLIES $TEST_DIR/net6.0/$i"
 done
 
 DOTNET_PARAMS="$ASSEMBLIES --filter:$WHERE $VSTEST_PARAMS"

@@ -14,13 +14,13 @@ namespace NzbDrone.Core.ImportLists.Goodreads
 {
     public class GoodreadsSeriesImportList : ImportListBase<GoodreadsSeriesImportListSettings>
     {
-        private readonly IProvideSeriesInfo _seriesInfo;
+        private readonly IProvideGoodreadsSeriesInfo _seriesInfo;
 
         public override string Name => "Goodreads Series";
         public override ImportListType ListType => ImportListType.Goodreads;
         public override TimeSpan MinRefreshInterval => TimeSpan.FromHours(12);
 
-        public GoodreadsSeriesImportList(IProvideSeriesInfo seriesInfo,
+        public GoodreadsSeriesImportList(IProvideGoodreadsSeriesInfo seriesInfo,
             IImportListStatusService importListStatusService,
             IConfigService configService,
             IParsingService parsingService,
@@ -36,17 +36,17 @@ namespace NzbDrone.Core.ImportLists.Goodreads
 
             try
             {
-                var series = _seriesInfo.GetSeriesInfo(Settings.SeriesId);
+                var series = _seriesInfo.GetGoodreadsSeriesInfo(Settings.SeriesId);
 
                 foreach (var work in series.Works)
                 {
                     result.Add(new ImportListItemInfo
                     {
-                        BookGoodreadsId = work.Id.ToString(),
+                        BookForeignId = work.Id.ToString(),
                         Book = work.OriginalTitle,
-                        EditionGoodreadsId = work.BestBook.Id.ToString(),
+                        EditionForeignId = work.BestBook.Id.ToString(),
                         Author = work.BestBook.AuthorName,
-                        AuthorGoodreadsId = work.BestBook.AuthorId.ToString()
+                        AuthorForeignId = work.BestBook.AuthorId.ToString()
                     });
                 }
 
@@ -69,7 +69,7 @@ namespace NzbDrone.Core.ImportLists.Goodreads
         {
             try
             {
-                _seriesInfo.GetSeriesInfo(Settings.SeriesId);
+                _seriesInfo.GetGoodreadsSeriesInfo(Settings.SeriesId);
                 return null;
             }
             catch (HttpException e)

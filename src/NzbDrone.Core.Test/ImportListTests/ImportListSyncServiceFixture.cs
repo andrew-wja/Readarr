@@ -83,12 +83,12 @@ namespace NzbDrone.Core.Test.ImportListTests
 
         private void WithAuthorId()
         {
-            _importListReports.First().AuthorGoodreadsId = "f59c5520-5f46-4d2c-b2c4-822eabf53419";
+            _importListReports.First().AuthorForeignId = "f59c5520-5f46-4d2c-b2c4-822eabf53419";
         }
 
         private void WithBookId()
         {
-            _importListReports.First().EditionGoodreadsId = "1234";
+            _importListReports.First().EditionForeignId = "1234";
         }
 
         private void WithSecondBook()
@@ -96,10 +96,10 @@ namespace NzbDrone.Core.Test.ImportListTests
             var importListItem2 = new ImportListItemInfo
             {
                 Author = "Linkin Park",
-                AuthorGoodreadsId = "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+                AuthorForeignId = "f59c5520-5f46-4d2c-b2c4-822eabf53419",
                 Book = "Meteora 2",
-                EditionGoodreadsId = "5678",
-                BookGoodreadsId = "8765"
+                EditionForeignId = "5678",
+                BookForeignId = "8765"
             };
             _importListReports.Add(importListItem2);
         }
@@ -107,15 +107,15 @@ namespace NzbDrone.Core.Test.ImportListTests
         private void WithExistingAuthor()
         {
             Mocker.GetMock<IAuthorService>()
-                .Setup(v => v.FindById(_importListReports.First().AuthorGoodreadsId))
-                .Returns(new Author { Id = 1, ForeignAuthorId = _importListReports.First().AuthorGoodreadsId });
+                .Setup(v => v.FindById(_importListReports.First().AuthorForeignId))
+                .Returns(new Author { Id = 1, ForeignAuthorId = _importListReports.First().AuthorForeignId });
         }
 
         private void WithExistingBook()
         {
             Mocker.GetMock<IBookService>()
                 .Setup(v => v.FindById("4321"))
-                .Returns(new Book { Id = 1, ForeignBookId = _importListReports.First().BookGoodreadsId });
+                .Returns(new Book { Id = 1, ForeignBookId = _importListReports.First().BookForeignId });
         }
 
         private void WithExcludedAuthor()
