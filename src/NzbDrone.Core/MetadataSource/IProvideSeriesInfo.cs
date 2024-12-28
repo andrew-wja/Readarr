@@ -1,4 +1,4 @@
-using NzbDrone.Core.MetadataSource.Goodreads;
+using NzbDrone.Core.MetadataSource.BookInfo;
 
 namespace NzbDrone.Core.MetadataSource
 {

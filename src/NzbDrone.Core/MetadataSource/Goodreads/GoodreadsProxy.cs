@@ -17,7 +17,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
         Book GetBookInfo(string foreignEditionId, bool useCache = true);
     }
 
-    public class GoodreadsProxy : IGoodreadsProxy, IProvideSeriesInfo, IProvideListInfo
+    public class GoodreadsProxy : IGoodreadsProxy, IProvideGoodreadsSeriesInfo, IProvideGoodreadsListInfo
     {
         private readonly ICachedHttpResponseService _cachedHttpClient;
         private readonly Logger _logger;
@@ -37,7 +37,7 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
                 .CreateFactory();
         }
 
-        public SeriesResource GetSeriesInfo(int foreignSeriesId, bool useCache = true)
+        public SeriesResource GetGoodreadsSeriesInfo(int foreignSeriesId, bool useCache = true)
         {
             _logger.Debug("Getting Series with GoodreadsId of {0}", foreignSeriesId);
 
@@ -143,10 +143,6 @@ namespace NzbDrone.Core.MetadataSource.Goodreads
             var resource = httpResponse.Deserialize<BookResource>();
 
             var book = MapBook(resource);
-            book.CleanTitle = Parser.Parser.CleanAuthorName(book.Title);
-
-            var authors = resource.Authors.SelectList(MapAuthor);
-            book.AuthorMetadata = authors.First();
 
             return book;
         }
