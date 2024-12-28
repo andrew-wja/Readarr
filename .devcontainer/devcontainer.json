@@ -5,12 +5,23 @@
   "image": "mcr.microsoft.com/devcontainers/dotnet:1-6.0",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/devcontainers/features/dotnet:2": {}
+    "ghcr.io/devcontainers/features/dotnet:2": {},
+    "ghcr.io/lukewiwa/features/shellcheck": {},
+    "ghcr.io/devcontainers-extra/features/shfmt": {}
   },
   "forwardPorts": [8787],
   "customizations": {
     "vscode": {
-      "extensions": ["esbenp.prettier-vscode"]
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "timonwong.shellcheck",
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.csdevkit",
+        "EditorConfig.EditorConfig",
+        "dbaeumer.vscode-eslint",
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "mads-hartmann.bash-ide-vscode"
+      ]
     }
   }
 }
